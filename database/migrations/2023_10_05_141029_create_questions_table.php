@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->foreignId('question_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('description');
+            $table->string('title');
+            $table->text('description');
+            $table->integer('views')->default(1);
+            $table->enum('status', ['open', 'closed'])->default('open');
             $table->timestamps();
+            // $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
-    
+
 
     /**
      * Reverse the migrations.
